@@ -1,0 +1,103 @@
+{% extends 'layout.html' %}
+
+
+{% block body %}
+    
+
+<div class="container my-5">
+  
+    <div class="bg-light  rounded">
+      <p font color="green" style="text-align:right;"> Tarih : {{yazı.date}}</font></hp>
+      <div class="col-sm-9 py-2 mx-auto">
+        
+        <h1 style="color:rgb(0, 204, 255);" class="display-5 fw-normal">{{yazı.title}}</h1>
+        <h6 > <font color="green" > Yazar : {{yazı.author}}</font></h6>
+       <br>
+       
+       {% if yazı.image %}
+       <div class="row">
+        <img src="{{ yazı.image.url }}" alt="">
+       </div>
+      
+       {% endif %}
+        
+        
+        <p class="fs-5">{{yazı.content|safe}}
+        </p>
+
+          
+          
+            
+    </div>
+
+    
+
+    </div>
+
+<!--- Yorumları gösterme kısmı-->
+<br>
+
+{% if comments %}
+<h4>Yorumlar</h4> <hr>
+{% for yorum in  comments %}
+
+<div class="media mb-4">
+          
+          
+
+        <div class="media mb-4">
+          <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+          <div class="media-body">
+            <h5 class="mt-0" style="color:rgb(208, 0, 255);">{{ yorum.yorumcu_adı}}</h5>
+            {{yorum.yorumcu_date}} <br>
+            {{yorum.yorumcu_yorumu}}
+          </div>
+        </div>
+{% endfor %}
+  
+{% else %}
+
+<h4>Burada henüz bir yorum yok... İlk yorum yapan sen olmak ister misin?</h4>
+{% endif %}
+<br>
+    <!-- Yorum yapma kısmı -->
+    
+    <div class="card my-4">
+      <h5 class="card-header">Seninde bu konu hakkındaki düşüncelerini alalım:</h5>
+      <div class="card-body">
+
+        <form  method="post" action="{% url 'article:comment' yazı.id %}">
+          {% csrf_token %}
+
+          <div class="mb-3">
+
+            <label for="formGroupExampleInput" class="form-label">İsminiz bağışlar mısınız?</label>
+            <input name="yorumcu_adı" type="text" class="form-control" id="formGroupExampleInput" placeholder="İsminizi girin">
+    
+          </div>
+
+          <div class="form-group">
+
+            <label for="formGroupExampleInput" >Özgün ve mantıklı ol.. ve şimdi yaz.</label>
+            <textarea name="yorumcu_yorumu" class="form-control" rows="3"></textarea>       
+          
+          </div>
+
+          <br>
+
+          <button type="submit" class="btn btn-primary">Yorumu Gönder</button>
+    
+        </form>
+
+      </div>
+    </div>
+
+
+  </div> <hr>
+  
+  
+
+
+
+{% endblock body %}
+    

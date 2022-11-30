@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/css.css' %}">
+    <title>Document</title>
+</head>
+
+<body class="d-flex flex-column h-100">
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<a class="navbar-brand" href="/">Anasayfa</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+		  <span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+		  
+		</div>
+		<div class="navbar-nav">
+			
+			{% if request.user.is_authenticated  %}
+			<a class="navbar-brand" href="/user/logoutuser">ÇIKIŞ YAP</a>
+			<a class="navbar-brand" href="/articles/kontrol">KONTROL PANELİ</a>
+			{% else %}
+			<a class="navbar-brand" href="/user/register">KAYIT OL</a>
+			<a class="navbar-brand" href="/user/userlogin">GİRİŞ YAP</a>
+			{% endif %}
+
+			
+
+			
+			
+		</div>
+	  </nav>
+
+  <div class="container">
+	{% if messages %}
+				
+	{% for message in messages %}
+	{% if message.tags == " info " %}
+	  <div class="alert alert-danger">{{ message }}</div>
+	  
+	{% else %}
+	  <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+	{% endif %}
+	
+	
+	{% endfor %}
+
+  {% endif %}
+
+  </div>
+	  
+
+
+
+
+
+
+
+    {% block body  %}
+    
+
+
+    
+    {% endblock body  %}
+
+
+
+
+    <script src="{% static 'js/js1.js' %}"></script>
+<script src="{% static 'js/js2.js' %}"></script>
+<script src="{% static 'js/js3.js' %}"></script>
+    
+</body>
+</html>
